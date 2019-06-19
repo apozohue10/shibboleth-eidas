@@ -51,6 +51,7 @@
                                     xmlns:eidas="http://eidas.europa.eu/saml-extensions"
                                     xmlns:saml2="urn:oasis:names:tc:SAML:2.0:assertion"
                                     xmlns:saml2p="urn:oasis:names:tc:SAML:2.0:protocol">
+                    <saml2:Issuer Format="urn:oasis:names:tc:SAML:2.0:nameid-format:entity">https://localhost:2443/Shibboleth.sso/Metadata</saml2:Issuer>
                     <saml2p:Extensions>
                         <eidas:SPType>public</eidas:SPType>
                         <eidas:RequestedAttributes><eidas:RequestedAttribute FriendlyName="PersonIdentifier"
