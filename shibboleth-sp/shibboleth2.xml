@@ -1,0 +1,183 @@
+<SPConfig xmlns="urn:mace:shibboleth:2.0:native:sp:config"
+    xmlns:conf="urn:mace:shibboleth:2.0:native:sp:config"
+    xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion"
+    xmlns:samlp="urn:oasis:names:tc:SAML:2.0:protocol"    
+    xmlns:md="urn:oasis:names:tc:SAML:2.0:metadata"
+    clockSkew="180">
+
+    <!--
+    By default, in-memory StorageService, ReplayCache, ArtifactMap, and SessionCache
+    are used. See example-shibboleth2.xml for samples of explicitly configuring them.
+    -->
+
+    <!--
+    To customize behavior for specific resources on Apache, and to link vhosts or
+    resources to ApplicationOverride settings below, use web server options/commands.
+    See https://wiki.shibboleth.net/confluence/display/SHIB2/NativeSPConfigurationElements for help.
+    
+    For examples with the RequestMap XML syntax instead, see the example-shibboleth2.xml
+    file, and the https://wiki.shibboleth.net/confluence/display/SHIB2/NativeSPRequestMapHowTo topic.
+    -->
+
+    <!-- The ApplicationDefaults element is where most of Shibboleth's SAML bits are defined. -->
+    <ApplicationDefaults entityID="https://localhost:2443/Shibboleth.sso/Metadata"
+                         digestAlg="http://www.w3.org/2001/04/xmlenc#sha512"
+                         signingAlg="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"
+                         REMOTE_USER="eppn persistent-id targeted-id">
+
+        <!--
+        Controls session lifetimes, address checks, cookie handling, and the protocol handlers.
+        You MUST supply an effectively unique handlerURL value for each of your applications.
+        The value defaults to /Shibboleth.sso, and should be a relative path, with the SP computing
+        a relative value based on the virtual host. Using handlerSSL="true", the default, will force
+        the protocol to be https. You should also set cookieProps to "https" for SSL-only sites.
+        Note that while we default checkAddress to "false", this has a negative impact on the
+        security of your site. Stealing sessions via cookie theft is much easier with this disabled.
+        -->
+        <Sessions lifetime="28800" timeout="3600" relayState="ss:mem"
+                  checkAddress="false" handlerSSL="false" cookieProps="http">
+
+            <!-- Default directs to a specific IdP. -->
+              
+            <SessionInitiator type="SAML2" signing="true" template="/var/www/html/bindingTemplate.html" Location="/Login" isDefault="true" id="Login"
+                              entityID="https://localhost/idp/shibboleth" postArtifact="true" outgoingBindings="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST">
+                <saml2p:AuthnRequest AssertionConsumerServiceURL=""
+                                    Consent="urn:oasis:names:tc:SAML:2.0:consent:unspecified"
+                                    Destination="" ForceAuthn="true"
+                                    ID="_" IsPassive="false"
+                                    IssueInstant="2019-06-19T09:13:55.043Z"
+                                    ProtocolBinding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST" ProviderName="nosequien"
+                                    Version="2.0" xmlns:ds="http://www.w3.org/2000/09/xmldsig#"
+                                    xmlns:eidas="http://eidas.europa.eu/saml-extensions"
+                                    xmlns:saml2="urn:oasis:names:tc:SAML:2.0:assertion"
+                                    xmlns:saml2p="urn:oasis:names:tc:SAML:2.0:protocol">
+                    <saml2p:Extensions>
+                        <eidas:SPType>public</eidas:SPType>
+                        <eidas:RequestedAttributes><eidas:RequestedAttribute FriendlyName="PersonIdentifier"
+                            Name="http://eidas.europa.eu/attributes/naturalperson/PersonIdentifier"
+                            NameFormat="urn:oasis:names:tc:SAML:2.0:attrname-format:uri" isRequired="true"/><eidas:RequestedAttribute FriendlyName="FamilyName"
+                            Name="http://eidas.europa.eu/attributes/naturalperson/CurrentFamilyName"
+                            NameFormat="urn:oasis:names:tc:SAML:2.0:attrname-format:uri" isRequired="true"/><eidas:RequestedAttribute FriendlyName="FirstName"
+                            Name="http://eidas.europa.eu/attributes/naturalperson/CurrentGivenName"
+                            NameFormat="urn:oasis:names:tc:SAML:2.0:attrname-format:uri" isRequired="true"/><eidas:RequestedAttribute FriendlyName="DateOfBirth"
+                            Name="http://eidas.europa.eu/attributes/naturalperson/DateOfBirth"
+                            NameFormat="urn:oasis:names:tc:SAML:2.0:attrname-format:uri" isRequired="true"/><eidas:RequestedAttribute FriendlyName="PlaceOfBirth"
+                            Name="http://eidas.europa.eu/attributes/naturalperson/PlaceOfBirth"
+                            NameFormat="urn:oasis:names:tc:SAML:2.0:attrname-format:uri" isRequired="false"/><eidas:RequestedAttribute FriendlyName="CurrentAddress"
+                            Name="http://eidas.europa.eu/attributes/naturalperson/CurrentAddress"
+                            NameFormat="urn:oasis:names:tc:SAML:2.0:attrname-format:uri" isRequired="false"/><eidas:RequestedAttribute FriendlyName="Gender"
+                            Name="http://eidas.europa.eu/attributes/naturalperson/Gender"
+                            NameFormat="urn:oasis:names:tc:SAML:2.0:attrname-format:uri" isRequired="false"/><eidas:RequestedAttribute FriendlyName="LegalName"
+                            Name="http://eidas.europa.eu/attributes/legalperson/LegalName"
+                            NameFormat="urn:oasis:names:tc:SAML:2.0:attrname-format:uri" isRequired="true"/><eidas:RequestedAttribute FriendlyName="LegalPersonIdentifier"
+                            Name="http://eidas.europa.eu/attributes/legalperson/LegalPersonIdentifier"
+                            NameFormat="urn:oasis:names:tc:SAML:2.0:attrname-format:uri" isRequired="true"/></eidas:RequestedAttributes>
+                    </saml2p:Extensions>
+                    <saml2p:NameIDPolicy AllowCreate="true" Format="urn:oasis:names:tc:SAML:1.1:nameid-format:unspecified"/>
+                    <saml2p:RequestedAuthnContext Comparison="minimum">
+                        <saml2:AuthnContextClassRef>http://eidas.europa.eu/LoA/low</saml2:AuthnContextClassRef>
+                    </saml2p:RequestedAuthnContext>
+                </saml2p:AuthnRequest>
+            </SessionInitiator>
+
+
+            <md:AssertionConsumerService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST" Location="/SAML2/POST" index="0"/>
+            
+            <!-- Extension service that generates "approximate" metadata based on SP configuration. -->
+            <Handler type="MetadataGenerator" Location="/Metadata" signing="true" template="wifi-metadata.xml" signingAlg="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512" digestAlg="http://www.w3.org/2001/04/xmlenc#sha512">
+                <md:Organization>
+                    <md:OrganizationName xml:lang="es">Universidad de Cantabria</md:OrganizationName>
+                    <md:OrganizationDisplayName xml:lang="es">Universidad de Cantabria</md:OrganizationDisplayName>
+                    <md:OrganizationURL xml:lang="es">http://www.unican.es</md:OrganizationURL>
+                </md:Organization>
+                <md:ContactPerson contactType="support">
+                    <md:Company>Universidad de Cantabria</md:Company>
+                    <md:GivenName>Luis</md:GivenName>
+                    <md:SurName>Muñoz Gutiérrez</md:SurName>
+                    <md:EmailAddress>luis@tlmat.unican.es</md:EmailAddress>
+                    <md:TelephoneNumber>942201497</md:TelephoneNumber>
+                </md:ContactPerson>
+                <md:ContactPerson contactType="technical">
+                    <md:Company>Universidad de Cantabria</md:Company>
+                    <md:GivenName>Johnny</md:GivenName>
+                    <md:SurName>Choque Ollachica</md:SurName>
+                    <md:EmailAddress>jchoque@tlmat.unican.es</md:EmailAddress>
+                    <md:TelephoneNumber>942200919 (ext. 510)</md:TelephoneNumber>
+                </md:ContactPerson>
+                <md:NameIDFormat>
+                    urn:oasis:names:tc:SAML:1.1:nameid-format:unspecified
+                </md:NameIDFormat>
+            </Handler>
+
+            <!-- Status reporting service. -->
+            <Handler type="Status" Location="/Status" acl="127.0.0.1 ::1"/>
+
+            <!-- Session diagnostic service. -->
+            <Handler type="Session" Location="/Session" showAttributeValues="true"/>
+
+            <!-- JSON feed of discovery information. -->
+            <Handler type="DiscoveryFeed" Location="/DiscoFeed"/>
+        </Sessions>
+
+        <!--
+        Allows overriding of error template information/filenames. You can
+        also add attributes with values that can be plugged into the templates.
+        -->
+        <Errors supportContact="root@localhost"
+            helpLocation="/about.html"
+            styleSheet="/shibboleth-sp/main.css"/>
+        
+        <!-- Example of remotely supplied batch of signed metadata. -->
+        <!--
+        <MetadataProvider type="XML" validate="true"
+	      uri="http://example.org/federation-metadata.xml"
+              backingFilePath="federation-metadata.xml" reloadInterval="7200">
+            <MetadataFilter type="RequireValidUntil" maxValidityInterval="2419200"/>
+            <MetadataFilter type="Signature" certificate="fedsigner.pem"/>
+            <DiscoveryFilter type="Blacklist" matcher="EntityAttributes" trimTags="true" 
+              attributeName="http://macedir.org/entity-category"
+              attributeNameFormat="urn:oasis:names:tc:SAML:2.0:attrname-format:uri"
+              attributeValue="http://refeds.org/category/hide-from-discovery" />
+        </MetadataProvider>
+        -->
+
+        <!-- Example of locally maintained metadata. -->
+        <!--
+        <MetadataProvider type="XML" validate="true" file="partner-metadata.xml"/>
+        -->
+        <MetadataProvider type="XML" file="idp-metadata.xml"/>
+
+        <!-- Map to extract attributes from SAML assertions. -->
+        <AttributeExtractor type="XML" validate="true" reloadChanges="false" path="attribute-map.xml"/>
+        
+        <!-- Use a SAML query if no attributes are supplied during SSO. -->
+        <AttributeResolver type="Query" subjectMatch="true"/>
+
+        <!-- Default filtering policy for recognized attributes, lets other data pass. -->
+        <AttributeFilter type="XML" validate="true" path="attribute-policy.xml"/>
+
+        <!-- Simple file-based resolver for using a single keypair. -->
+        <CredentialResolver type="File" use="signing" key="sp.example.org.key" certificate="sp.example.org.crt"/>
+        <CredentialResolver type="File" use="encryption" key="sp.example.org.key" certificate="sp.example.org.crt"/>
+
+        <!--
+        The default settings can be overridden by creating ApplicationOverride elements (see
+        the https://wiki.shibboleth.net/confluence/display/SHIB2/NativeSPApplicationOverride topic).
+        Resource requests are mapped by web server commands, or the RequestMapper, to an
+        applicationId setting.
+        
+        Example of a second application (for a second vhost) that has a different entityID.
+        Resources on the vhost would map to an applicationId of "admin":
+        -->
+        <!--
+        <ApplicationOverride id="admin" entityID="https://admin.example.org/shibboleth"/>
+        -->
+    </ApplicationDefaults>
+    
+    <!-- Policies that determine how to process and authenticate runtime messages. -->
+    <SecurityPolicyProvider type="XML" validate="true" path="security-policy.xml"/>
+
+    <!-- Low-level configuration about protocols and bindings available for use. -->
+    <!-- <ProtocolProvider type="XML" validate="true" reloadChanges="false" path="protocols.xml"/> -->
+
+</SPConfig>
