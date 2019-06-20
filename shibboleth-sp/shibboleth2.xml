@@ -87,23 +87,23 @@
             <!-- Extension service that generates "approximate" metadata based on SP configuration. -->
             <Handler type="MetadataGenerator" Location="/Metadata" signing="true" template="wifi-metadata.xml" signingAlg="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512" digestAlg="http://www.w3.org/2001/04/xmlenc#sha512">
                 <md:Organization>
-                    <md:OrganizationName xml:lang="es">Universidad de Cantabria</md:OrganizationName>
-                    <md:OrganizationDisplayName xml:lang="es">Universidad de Cantabria</md:OrganizationDisplayName>
-                    <md:OrganizationURL xml:lang="es">http://www.unican.es</md:OrganizationURL>
+                    <md:OrganizationName xml:lang="es">Test 1</md:OrganizationName>
+                    <md:OrganizationDisplayName xml:lang="es">Test 1</md:OrganizationDisplayName>
+                    <md:OrganizationURL xml:lang="es">http://www.Test1.es</md:OrganizationURL>
                 </md:Organization>
                 <md:ContactPerson contactType="support">
-                    <md:Company>Universidad de Cantabria</md:Company>
-                    <md:GivenName>Luis</md:GivenName>
-                    <md:SurName>Muñoz Gutiérrez</md:SurName>
-                    <md:EmailAddress>luis@tlmat.unican.es</md:EmailAddress>
-                    <md:TelephoneNumber>942201497</md:TelephoneNumber>
+                    <md:Company>Test 1</md:Company>
+                    <md:GivenName>John</md:GivenName>
+                    <md:SurName>Doe</md:SurName>
+                    <md:EmailAddress>john_doe@test.com</md:EmailAddress>
+                    <md:TelephoneNumber>00000000000</md:TelephoneNumber>
                 </md:ContactPerson>
                 <md:ContactPerson contactType="technical">
-                    <md:Company>Universidad de Cantabria</md:Company>
-                    <md:GivenName>Johnny</md:GivenName>
-                    <md:SurName>Choque Ollachica</md:SurName>
-                    <md:EmailAddress>jchoque@tlmat.unican.es</md:EmailAddress>
-                    <md:TelephoneNumber>942200919 (ext. 510)</md:TelephoneNumber>
+                    <md:Company>Test 1</md:Company>
+                    <md:GivenName>John</md:GivenName>
+                    <md:SurName>Doe</md:SurName>
+                    <md:EmailAddress>john_doe@test.com</md:EmailAddress>
+                    <md:TelephoneNumber>00000000000</md:TelephoneNumber>
                 </md:ContactPerson>
                 <md:NameIDFormat>
                     urn:oasis:names:tc:SAML:1.1:nameid-format:unspecified
