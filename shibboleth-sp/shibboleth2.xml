@@ -34,7 +34,7 @@
         Note that while we default checkAddress to "false", this has a negative impact on the
         security of your site. Stealing sessions via cookie theft is much easier with this disabled.
         -->
-        <Sessions lifetime="28800" timeout="3600" relayState="ss:mem"
+        <Sessions lifetime="28800" timeout="3600" relayState="cookie"
                   checkAddress="false" handlerSSL="false" cookieProps="http">
 
             <!-- Default directs to a specific IdP. -->
@@ -80,7 +80,6 @@
                     </saml2p:RequestedAuthnContext>
                 </saml2p:AuthnRequest>
             </SessionInitiator>
-
 
             <md:AssertionConsumerService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST" Location="/SAML2/POST" index="0"/>
             
@@ -128,25 +127,13 @@
             helpLocation="/about.html"
             styleSheet="/shibboleth-sp/main.css"/>
         
-        <!-- Example of remotely supplied batch of signed metadata. -->
-        <!--
-        <MetadataProvider type="XML" validate="true"
-	      uri="http://example.org/federation-metadata.xml"
-              backingFilePath="federation-metadata.xml" reloadInterval="7200">
-            <MetadataFilter type="RequireValidUntil" maxValidityInterval="2419200"/>
-            <MetadataFilter type="Signature" certificate="fedsigner.pem"/>
-            <DiscoveryFilter type="Blacklist" matcher="EntityAttributes" trimTags="true" 
-              attributeName="http://macedir.org/entity-category"
-              attributeNameFormat="urn:oasis:names:tc:SAML:2.0:attrname-format:uri"
-              attributeValue="http://refeds.org/category/hide-from-discovery" />
-        </MetadataProvider>
-        -->
 
         <!-- Example of locally maintained metadata. -->
         <!--
         <MetadataProvider type="XML" validate="true" file="partner-metadata.xml"/>
         -->
-        <MetadataProvider type="XML" file="idp-metadata-without-ssl.xml"/>
+        <MetadataProvider type="XML" file="idp-metadata.xml"/>
+        <MetadataProvider type="XML" file="idp-response-metadata.xml"/>
 
         <!-- Map to extract attributes from SAML assertions. -->
         <AttributeExtractor type="XML" validate="true" reloadChanges="false" path="attribute-map.xml"/>

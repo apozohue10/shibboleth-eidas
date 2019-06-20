@@ -54,9 +54,14 @@
     </Attribute>
 
     <!-- Fourth, the SAML 2.0 NameID Format: -->
-    <Attribute name="urn:oasis:names:tc:SAML:2.0:nameid-format:persistent" id="persistent-id">
+    <Attribute name="urn:oasis:names:tc:SAML:1.1:nameid-format:unspecified" id="persistent-id">
         <AttributeDecoder xsi:type="NameIDAttributeDecoder" formatter="$NameQualifier!$SPNameQualifier!$Name" defaultQualifiers="true"/>
     </Attribute>
+
+    <Attribute name="http://eidas.europa.eu/attributes/naturalperson/PersonIdentifier" id="PersonIdentifier">
+        <AttributeDecoder xsi:type="eidas-natural:PersonIdentifierType" formatter="urn:oasis:names:tc:SAML:2.0:attrname-format:uri" defaultQualifiers="true"/>
+    </Attribute>
+
     
     <!-- Some more eduPerson attributes, uncomment these to use them... -->
     <!--
