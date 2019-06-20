@@ -24,16 +24,19 @@
 		</noscript>
 	
 		<form method="POST" action="<shibmlp action/>">
-		<shibmlpif TARGET>
+		<!-- <shibmlpif TARGET>
 			<input type="hidden" name="TARGET" value="<shibmlp TARGET/>"/>
-		</shibmlpif>
+		</shibmlpif> -->
 		<shibmlpif RelayState>
-			<input type="hidden" name="RelayState" value="<shibmlp RelayState/>"/>
+			<input type="hidden" name="RelayState" value="MyRelayState"/>
 		</shibmlpif>
 		<shibmlpif SAMLRequest>
 			<input type="hidden" name="SAMLRequest" value="<shibmlp SAMLRequest/>"/>
 		</shibmlpif>
-		<shibmlpif SAMLResponse>
+		<input type="hidden" name="postLocationUrl" value="https://eidas.dit.upm.es/EidasNode/ServiceProvider"/>
+		<input type="hidden" name="redirectLocationUrl" value="https://eidas.dit.upm.es/EidasNode/ServiceProvider"/>
+		<input type="hidden" name="country" value="ES"/>
+		<!-- <shibmlpif SAMLResponse>
 			<input type="hidden" name="SAMLResponse" value="<shibmlp SAMLResponse/>"/>
 		</shibmlpif>
 		<shibmlpif SAMLart>
@@ -47,7 +50,7 @@
 		</shibmlpif>
         <shibmlpif KeyInfo>
             <input type="hidden" name="KeyInfo" value="<shibmlp KeyInfo/>"/>
-        </shibmlpif>
+        </shibmlpif> -->
 		<noscript>
 		<div>
 		<input type="submit" value="Continue"/>

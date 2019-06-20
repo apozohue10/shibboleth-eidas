@@ -40,7 +40,7 @@
             <!-- Default directs to a specific IdP. -->
               
             <SessionInitiator type="SAML2" signing="true" template="/var/www/html/bindingTemplate.html" Location="/Login" isDefault="true" id="Login"
-                              entityID="https://localhost/idp/shibboleth" postArtifact="true" outgoingBindings="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST">
+                              entityID="https://eidas.dit.upm.es/EidasNode/ConnectorMetadata" postArtifact="true" outgoingBindings="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST">
                 <saml2p:AuthnRequest AssertionConsumerServiceURL=""
                                     Consent="urn:oasis:names:tc:SAML:2.0:consent:unspecified"
                                     Destination="" ForceAuthn="true"
@@ -51,7 +51,7 @@
                                     xmlns:eidas="http://eidas.europa.eu/saml-extensions"
                                     xmlns:saml2="urn:oasis:names:tc:SAML:2.0:assertion"
                                     xmlns:saml2p="urn:oasis:names:tc:SAML:2.0:protocol">
-                    <saml2:Issuer Format="urn:oasis:names:tc:SAML:2.0:nameid-format:entity">https://localhost:2443/Shibboleth.sso/Metadata</saml2:Issuer>
+                    <saml2:Issuer Format="urn:oasis:names:tc:SAML:2.0:nameid-format:entity">http://138.4.7.8:2080/Shibboleth.sso/Metadata</saml2:Issuer>
                     <saml2p:Extensions>
                         <eidas:SPType>public</eidas:SPType>
                         <eidas:RequestedAttributes><eidas:RequestedAttribute FriendlyName="PersonIdentifier"
@@ -146,7 +146,7 @@
         <!--
         <MetadataProvider type="XML" validate="true" file="partner-metadata.xml"/>
         -->
-        <MetadataProvider type="XML" file="idp-metadata.xml"/>
+        <MetadataProvider type="XML" file="idp-metadata-without-ssl.xml"/>
 
         <!-- Map to extract attributes from SAML assertions. -->
         <AttributeExtractor type="XML" validate="true" reloadChanges="false" path="attribute-map.xml"/>
@@ -158,8 +158,8 @@
         <AttributeFilter type="XML" validate="true" path="attribute-policy.xml"/>
 
         <!-- Simple file-based resolver for using a single keypair. -->
-        <CredentialResolver type="File" use="signing" key="sp.example.org.key" certificate="sp.example.org.crt"/>
-        <CredentialResolver type="File" use="encryption" key="sp.example.org.key" certificate="sp.example.org.crt"/>
+        <CredentialResolver type="File" use="signing" key="key.pem" certificate="cert.pem"/>
+        <CredentialResolver type="File" use="encryption" key="key.pem" certificate="cert.pem"/>
 
         <!--
         The default settings can be overridden by creating ApplicationOverride elements (see
