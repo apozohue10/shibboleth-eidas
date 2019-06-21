@@ -58,9 +58,12 @@
         <AttributeDecoder xsi:type="NameIDAttributeDecoder" formatter="$NameQualifier!$SPNameQualifier!$Name" defaultQualifiers="true"/>
     </Attribute>
 
-    <Attribute name="http://eidas.europa.eu/attributes/naturalperson/PersonIdentifier" id="PersonIdentifier">
-        <AttributeDecoder xsi:type="eidas-natural:PersonIdentifierType" formatter="urn:oasis:names:tc:SAML:2.0:attrname-format:uri" defaultQualifiers="true"/>
-    </Attribute>
+    <Attribute name="http://eidas.europa.eu/attributes/naturalperson/PersonIdentifier" id="PersonIdentifier" />
+    <Attribute name="http://eidas.europa.eu/attributes/naturalperson/CurrentFamilyName" id="CurrentFamilyName" />
+    <Attribute name="http://eidas.europa.eu/attributes/naturalperson/CurrentGivenName" id="CurrentGivenName" />
+    <Attribute name="http://eidas.europa.eu/attributes/naturalperson/DateOfBirth" id="DateOfBirth" />
+    <Attribute name="http://eidas.europa.eu/attributes/legalperson/LegalPersonIdentifier" id="LegalPersonIdentifier" />
+    <Attribute name="http://eidas.europa.eu/attributes/legalperson/LegalName" id="LegalName" />
 
     
     <!-- Some more eduPerson attributes, uncomment these to use them... -->
